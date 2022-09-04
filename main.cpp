@@ -19,7 +19,7 @@
 using namespace std;
 
 // Llave a usar para transposición
-string const key = "LAMB";
+string const key = "ABECDRIOTMNVGPU";
 map<int,int> keyMap;
 
 void ordenPermuta()
@@ -130,7 +130,7 @@ string desencriptarMensaje(string cipher)
 	return msg;
 }
 
-// Driver Program
+// Inicio del main
 int main(void)
 {
 
