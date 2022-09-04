@@ -20,7 +20,7 @@ using namespace std;
 
 // Llave a usar para transposición
 string key;
-string plain_text;
+string texto_plano;
 
 map<int,int> keyMap;
 
@@ -31,7 +31,7 @@ void obtenerLlave(){
 
 	cout << "Ingrese el texto a cifrar (maximo 100 caracteres): ";
 	cin.ignore();
-  	getline(cin,plain_text);
+  	getline(cin,texto_plano);
 }
 
 
@@ -152,7 +152,7 @@ int main(void)
 	
 	ordenPermuta();
 
-	string cipher = encriptarMensaje(plain_text);
+	string cipher = encriptarMensaje(texto_plano);
 	cout << "\nMensaje encriptado: " << cipher << endl;
 	
 	cout << "\nMensaje desencriptado: " << desencriptarMensaje(cipher) << endl;
