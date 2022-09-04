@@ -145,17 +145,90 @@ string desencriptarMensaje(string cipher)
 	return msg;
 }
 
+
+
+string encrypt_caesar(string cipher, int s)
+{
+    string result = "";
+  
+    // traverse text
+    for (int i=0;i<cipher.length();i++)
+    {
+        // apply transformation to each character
+        // Encrypt Uppercase letters
+        if (isupper(cipher[i]))
+        {
+            result += char(int(cipher[i]+s-65)%26 +65);
+        }
+        else if (cipher[i]==' ') {
+            result += char(int(cipher[i]));
+        }
+  
+    // Encrypt Lowercase letters
+        else{
+            result += char(int(cipher[i]+s-97)%26 +97);
+        }
+    }
+  
+    // Return the resulting string
+    return result;
+}
+
+
+string decrypt_caesar(string cipher, int s)
+{
+    string result = "";
+  
+    // traverse text
+    for (int i=0;i<cipher.length();i++)
+    {
+        // apply transformation to each character
+        // Encrypt Uppercase letters
+        if (isupper(cipher[i]))
+        {
+            result += char(int(cipher[i]-s-65)%26 +65);
+        }
+        else if (cipher[i]==' ') {
+            result += char(int(cipher[i]));
+        }
+  
+    // Encrypt Lowercase letters
+        else{
+            result += char(int(cipher[i]-s-97)%26 +97);
+        }
+    }
+  
+    // Return the resulting string
+    return result;
+}
+
+
+
 // Inicio del main
 int main(void)
 {
 	obtenerLlave();
-	
+	int s = 4;
 	ordenPermuta();
 
 	string cipher = encriptarMensaje(texto_plano);
-	cout << "\nMensaje encriptado: " << cipher << endl;
+	cout << "\nTranspuesta Encriptado: " << cipher << endl;
 	
-	cout << "\nMensaje desencriptado: " << desencriptarMensaje(cipher) << endl;
+	string cipher2 = cipher;
+
+	cout << "\nCipherr: " << cipher2 << endl;
+	
+	
+	cout << "\nCaesar Encriptado: " << encrypt_caesar(cipher2, s)<< endl;
+	
+
+	cout << "\nCaesar Desencriptado: " << decrypt_caesar(cipher2, s)<< endl;
+	string cipher3 = cipher2;
+
+	cout << "\nCipherrr: " << cipher3 << endl;
+
+	cout << "\nTranspuesta Desencriptado: " << desencriptarMensaje(cipher3) << endl;
+	
 
 	return 0;
 }

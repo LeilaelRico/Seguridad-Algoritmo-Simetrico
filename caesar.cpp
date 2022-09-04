@@ -3,7 +3,7 @@ using namespace std;
   
 // This function receives text and shift and
 // returns the encrypted text
-string encrypt(string text, int s)
+string encrypt_caesar(string text, int s)
 {
     string result = "";
   
@@ -31,7 +31,7 @@ string encrypt(string text, int s)
 }
 
 
-string decrypt(string text, int s)
+string decrypt_caesar(string text, int s)
 {
     string result = "";
   
@@ -64,10 +64,10 @@ string decrypt(string text, int s)
 // Driver program to test the above function
 int main()
 {
-    string text="tsppsw elyqehsw";
+    string text="]_jl`kidhqa ]la_do ikk  kk]_iko[idok]_kk] lk ohi^inoj aq";
     int s = 4;
     cout << "Text : " << text;
     cout << "\nShift: " << s;
-    cout << "\nCipher: " << decrypt(text, s);
+    cout << "\nCipher: " << decrypt_caesar(text, s);
     return 0;
 }
