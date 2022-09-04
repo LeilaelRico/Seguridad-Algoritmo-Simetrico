@@ -19,12 +19,25 @@
 using namespace std;
 
 // Llave a usar para transposición
-string const key = "ABECDRIOTMNVGPU";
+string key;
+string plain_text;
+
 map<int,int> keyMap;
+
+void obtenerLlave(){
+	
+	cout << "Ingrese la llave (maximo 16 caracteres): ";
+  	cin >> key;
+
+	cout << "Ingrese el texto a cifrar (maximo 100 caracteres): ";
+	cin.ignore();
+  	getline(cin,plain_text);
+}
+
 
 void ordenPermuta()
 {			
-	// Orden de permutación agragado al mapa
+	// Orden de permutación agregado al mapa
 	for(int i=0; i < key.length(); i++)
 	{
 		keyMap[key[i]] = i;
@@ -34,6 +47,8 @@ void ordenPermuta()
 // Encripción
 string encriptarMensaje(string msg)
 {
+	ordenPermuta(); 
+	
 	int row,col,j;
 	string cipher = "";
 	
@@ -133,21 +148,14 @@ string desencriptarMensaje(string cipher)
 // Inicio del main
 int main(void)
 {
-
-	string clave;
-	string msg;
-
-
-	std::cout << "Ingrese el texto a cifrar: ";
-  	std::getline (std::cin,msg);
-
-
+	obtenerLlave();
+	
 	ordenPermuta();
 
-	string cipher = encriptarMensaje(msg);
-	cout << "\nEncrypted Message: " << cipher << endl;
+	string cipher = encriptarMensaje(plain_text);
+	cout << "\nMensaje encriptado: " << cipher << endl;
 	
-	cout << "\nDecrypted Message: " << desencriptarMensaje(cipher) << endl;
+	cout << "\nMensaje desencriptado: " << desencriptarMensaje(cipher) << endl;
 
 	return 0;
 }
