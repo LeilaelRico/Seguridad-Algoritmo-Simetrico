@@ -22,13 +22,16 @@ string texto_plano;
 map<int,int> keyMap;
 
 void obtenerLlave(){
-	
+
+	cout << "\n\n*****----------**********----------**********----------**********----------*****" << endl;	
 	cout << "Ingrese la llave (maximo 16 caracteres): ";
   	cin >> key;
 
 	cout << "Ingrese el texto a cifrar (maximo 100 caracteres): ";
 	cin.ignore();
   	getline(cin,texto_plano);
+	cout << "*****----------**********----------**********----------**********----------*****" << endl;	
+
 }
 
 
@@ -67,7 +70,7 @@ string encriptarMensaje(string msg)
 			if(msg[k] == '\0')
 			{
 				// Se añade el caracter '_'
-				matrix[i][j] = '_';	
+				matrix[i][j] = ' ';	
 				j++;
 			}
 			
@@ -88,7 +91,7 @@ string encriptarMensaje(string msg)
 		// Obtención del texto cifrado de la columna de la matriz
 		for (int i=0; i<row; i++)
 		{
-			if( isalpha(matrix[i][j]) || matrix[i][j]==' ' || matrix[i][j]=='_')
+			if( isalpha(matrix[i][j]) || matrix[i][j]==' ')
 				cipher += matrix[i][j];
 		}
 	}
@@ -227,7 +230,6 @@ string convertToString(char* a, int size)
 template<typename T>
 void printElements(T &v)
 {
-    //cout << "Rotacion: ";
     for (const auto &item : v) {
         cout << item << "";
     }
@@ -253,45 +255,29 @@ int main(void)
 {
 
 	obtenerLlave();
-	int s = 4;
+	int s = 3;
 	ordenPermuta();
 
+	cout << "\n\n========================================= ENCRIPTADO =========================================" << endl;
+
 	string cipher = encriptarMensaje(texto_plano);
-	cout << "\nTranspuesta Encriptado: " << cipher << endl;
+	cout << "\tTranspuesta Encriptado: " << cipher << endl;
 	
 	string cipher2 = encrypt_caesar(cipher, s);
-	cout << "\nCaesar Encriptado: " << cipher2 << endl;
+	cout << "\t\tCaesar Encriptado: " << cipher2 << endl;
 	
-/*
-	cout << "\nCaesar Desencriptado: " << decrypt_caesar(cipher2, s)<< endl;
-	string cipher3 = cipher2;
-
-	cout << "\nCipherrr: " << cipher3 << endl;
-
-	cout << "\nTranspuesta Desencriptado: " << desencriptarMensaje(cipher3) << endl;
-
-	str2char(cipher2);*/
-
-	/*
-	cout << "Antes de Rotar: ";
-	printElements(cipher2); 
-	cout << endl;*/
-
-	cout << "\nRotacion Encriptado: ";
+	cout << "\t\t\tRotacion Encriptado: ";
 	rotateArrayElements(cipher2, key.length());
 	printElements(cipher2);
 
 	string cipher3 = cipher2;
-	/*cout << "Sigo igual: ";
-	printElements(cipher3); 
-	cout << endl;*/
 	
 	int n = cipher3.length();
 	int r = key.length();
 	char char_cipher3[n + 1];
 	strcpy(char_cipher3, cipher3.c_str());
 
-	cout << "\nSuma: ";
+	cout << "\t\t\t\tSuma: ";
 	for (int i = 0; i < n; i++) {
     char_cipher3[i] = char_cipher3[i] + r;
     cout << char_cipher3[i];
@@ -299,11 +285,11 @@ int main(void)
 
 	string texto = convertToString(char_cipher3, n);
 
-	cout << "\nString Encriptado Final: " << texto;
+	cout << "\n\n\n\tString Encriptado Final: " << texto;
 
-	cout << "\n\n DESECRIPTACION";
+	cout << "\n\n========================================= DESENCRIPTADO =========================================";
 
-	cout << "\nSuma Reverso: ";
+	cout << "\n\tSuma Reverso: ";
 	for (int i = 0; i < n; i++) {
     char_cipher3[i] = char_cipher3[i] - r;
     cout << char_cipher3[i];
@@ -312,19 +298,16 @@ int main(void)
 	string decipher = convertToString(char_cipher3, n);
 
 	
-	cout << "\nRotacion Desencriptado: ";
+	cout << "\n\t\tRotacion Desencriptado: ";
 	rotateArrayElements(decipher, -key.length());
     printElements(decipher);
-	cout << endl;
+	//cout << endl;
 	string decipher2 = decipher;
 
-	cout << "\nCaesar Desencriptado: " << decrypt_caesar(decipher2, s)<< endl;
+	cout << "\t\t\tCaesar Desencriptado: " << decrypt_caesar(decipher2, s)<< endl;
 	string decipher3 =  decrypt_caesar(decipher2, s);
 	
-	cout << "\nTranspuesta Desencriptado: " << desencriptarMensaje(decipher3) << endl;
-
-	//cout << "\nString: " << texto;
-	
+	cout << "\t\t\t\tTranspuesta Desencriptado: " << desencriptarMensaje(decipher3) << endl;
 
 	return 0;
 }
