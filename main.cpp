@@ -15,7 +15,6 @@
 #include <string.h>
 using namespace std;
 
-// Llave a usar para transposición
 string key;
 string texto_plano;
 
@@ -37,14 +36,12 @@ void obtenerLlave(){
 
 void ordenPermuta()
 {			
-	// Orden de permutación agregado al mapa
 	for(int i=0; i < key.length(); i++)
 	{
 		keyMap[key[i]] = i;
 	}
 }
 
-// Encripción
 string encriptarMensaje(string msg)
 {
 	ordenPermuta(); 
@@ -52,10 +49,8 @@ string encriptarMensaje(string msg)
 	int row,col,j;
 	string cipher = "";
 	
-	// Calcula la columna de la matriz
 	col = key.length();
 	
-	// Calcula el renglón máximo de la matriz
 	row = msg.length()/col;
 	
 	if (msg.length() % col)
@@ -69,14 +64,12 @@ string encriptarMensaje(string msg)
 		{
 			if(msg[k] == '\0')
 			{
-				// Se añade el caracter '_'
 				matrix[i][j] = ' ';	
 				j++;
 			}
 			
 			if( isalpha(msg[k]) || msg[k]==' ')
 			{
-				// Se añade el espacio y alfabeto a la matriz
 				matrix[i][j] = msg[k];
 				j++;
 			}
@@ -88,7 +81,6 @@ string encriptarMensaje(string msg)
 	{
 		j=ii->second;
 		
-		// Obtención del texto cifrado de la columna de la matriz
 		for (int i=0; i<row; i++)
 		{
 			if( isalpha(matrix[i][j]) || matrix[i][j]==' ')
@@ -99,27 +91,21 @@ string encriptarMensaje(string msg)
 	return cipher;
 }
 
-// Desencriptar
 string desencriptarMensaje(string cipher)
 {
-	// Calcula el renglón y columna para la matriz de cifrado
 	int col = key.length();
 
 	int row = cipher.length()/col;
 	char cipherMat[row][col];
 
-	// Añade caracter a la matriz
 	for (int j=0,k=0; j<col; j++)
 		for (int i=0; i<row; i++)
 			cipherMat[i][j] = cipher[k++];
 
-	// Actualiza el orden de la llave para desencriptar
 	int index = 0;
 	for( map<int,int>::iterator ii=keyMap.begin(); ii!=keyMap.end(); ++ii)
 		ii->second = index++;
 
-	/* Arrange the matrix column wise according
-	to permutation order by adding into new matrix */
 	char decCipher[row][col];
 	map<int,int>::iterator ii=keyMap.begin();
 	int k = 0;
@@ -132,7 +118,6 @@ string desencriptarMensaje(string cipher)
 		}
 	}
 
-	// Mensaje en  matriz
 	string msg = "";
 	for (int i=0; i<row; i++)
 	{
@@ -151,11 +136,8 @@ string encrypt_caesar(string cipher, int s)
 {
     string result = "";
   
-    // traverse text
     for (int i=0;i<cipher.length();i++)
     {
-        // apply transformation to each character
-        // Encrypt Uppercase letters
         if (isupper(cipher[i]))
         {
             result += char(int(cipher[i]+s-65)%26 +65);
@@ -164,13 +146,11 @@ string encrypt_caesar(string cipher, int s)
             result += char(int(cipher[i]));
         }
   
-    // Encrypt Lowercase letters
         else{
             result += char(int(cipher[i]+s-97)%26 +97);
         }
     }
   
-    // Return the resulting string
     return result;
 }
 
@@ -179,11 +159,8 @@ string decrypt_caesar(string cipher, int s)
 {
     string result = "";
   
-    // traverse text
     for (int i=0;i<cipher.length();i++)
     {
-        // apply transformation to each character
-        // Encrypt Uppercase letters
         if (isupper(cipher[i]))
         {
             result += char(int(cipher[i]-s-65)%26 +65);
@@ -192,13 +169,11 @@ string decrypt_caesar(string cipher, int s)
             result += char(int(cipher[i]));
         }
   
-    // Encrypt Lowercase letters
         else{
             result += char(int(cipher[i]-s-97)%26 +97);
         }
     }
   
-    // Return the resulting string
     return result;
 }
 
@@ -261,7 +236,7 @@ int main(void)
 	cout << "\n\n========================================= ENCRIPTADO =========================================" << endl;
 
 	string cipher = encriptarMensaje(texto_plano);
-	cout << "\tTranspuesta Encriptado: " << cipher << endl;
+	cout << "\tTranspuesta Encriptada: " << cipher << endl;
 	
 	string cipher2 = encrypt_caesar(cipher, s);
 	cout << "\t\tCaesar Encriptado: " << cipher2 << endl;
@@ -301,13 +276,12 @@ int main(void)
 	cout << "\n\t\tRotacion Desencriptado: ";
 	rotateArrayElements(decipher, -key.length());
     printElements(decipher);
-	//cout << endl;
 	string decipher2 = decipher;
 
 	cout << "\t\t\tCaesar Desencriptado: " << decrypt_caesar(decipher2, s)<< endl;
 	string decipher3 =  decrypt_caesar(decipher2, s);
 	
-	cout << "\t\t\t\tTranspuesta Desencriptado: " << desencriptarMensaje(decipher3) << endl;
+	cout << "\t\t\t\tTranspuesta Desencriptada: " << desencriptarMensaje(decipher3) << endl;
 
 	return 0;
 }
