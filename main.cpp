@@ -22,6 +22,8 @@ using namespace std;
 string key;
 string texto_plano;
 
+char b[] = {};
+
 map<int,int> keyMap;
 
 void obtenerLlave(){
@@ -203,10 +205,56 @@ string decrypt_caesar(string cipher, int s)
 }
 
 
+// void str2char(string s){
+ 
+//     int n = s.length();
+ 
+//     char char_array[n + 1];
+ 
+//     strcpy(char_array, s.c_str());
+ 
+//     for (int i = 0; i < n; i++)
+//         cout << char_array[i];
+ 
+// }
+
+string convertToString(char* a, int size)
+{
+    int i;
+    string s = "";
+    for (i = 0; i < size; i++) {
+        s = s + a[i];
+    }
+    return s;
+}
+
+void rotArray(char a[], int n,  int k)
+{
+    
+    int i;
+    
+    
+    //Moving each element by k positions
+    for(i = 0; i < n; i++) {
+
+        b[(i + k) % n] = a[i];
+    }
+     
+     //Display Rotated Array
+     
+     for(i = 0; i < n; i++) {
+
+        cout << b[i];
+     }
+
+	 
+}
+
 
 // Inicio del main
 int main(void)
 {
+
 	obtenerLlave();
 	int s = 4;
 	ordenPermuta();
@@ -214,21 +262,68 @@ int main(void)
 	string cipher = encriptarMensaje(texto_plano);
 	cout << "\nTranspuesta Encriptado: " << cipher << endl;
 	
-	string cipher2 = cipher;
-
-	cout << "\nCipherr: " << cipher2 << endl;
+	string cipher2 = encrypt_caesar(cipher, s);
+	cout << "\nCaesar Encriptado: " << cipher2 << endl;
 	
-	
-	cout << "\nCaesar Encriptado: " << encrypt_caesar(cipher2, s)<< endl;
-	
-
+/*
 	cout << "\nCaesar Desencriptado: " << decrypt_caesar(cipher2, s)<< endl;
 	string cipher3 = cipher2;
 
 	cout << "\nCipherrr: " << cipher3 << endl;
 
 	cout << "\nTranspuesta Desencriptado: " << desencriptarMensaje(cipher3) << endl;
+
+	str2char(cipher2);*/
+
 	
+
+	int n = cipher2.length();
+ 
+    char char_array[n + 1];
+
+	char char_aux[n + 1];
+ 
+    strcpy(char_array, cipher2.c_str());
+
+	cout << "\nChar array: ";
+
+	for (int i = 0; i < n; i++) {
+		cout << char_array[i];
+	}
+
+	int m = sizeof(char_array);
+	int r = key.length();
+	int k = m - r;
+
+	cout << "\n";
+	cout << "M= " << m << endl;
+    cout << "R= " << r << endl;
+    cout << "K= " << k << endl;
+
+	cout << "\nRotacion Encriptado: ";
+	rotArray(char_array, m, r);
+	cout << endl;
+
+	cout << "\nCoso: "<< endl;
+	for (int i = 0; i < m; i++) {
+		cout << b[i];
+	}
+
+	cout << "\nRotacion Desencriptado (cipher2): ";
+	rotArray(b, m+1, k);
+
+	cout << "\nES: "<< endl;
+	for (int i = 0; i < m; i++) {
+		cout << b[i];
+	}
+
+	
+
+	/*string texto = convertToString(char_array, m);
+
+	cout << "\nString: " << texto;
+	lp rgxpsgefgefg
+	*/
 
 	return 0;
 }

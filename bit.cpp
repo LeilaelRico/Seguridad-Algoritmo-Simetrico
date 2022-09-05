@@ -1,24 +1,63 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
+#include <array>
+#include <algorithm>
+#include <cstring>
+
 using namespace std;
-int main(){
-    int t;
-    cin>>t;
-    while(t--){
-        string s;
-        cin>>s;
-        string original_s=s; // store the input string in a variable as original_s
-        next_permutation(s.begin(),s.end());// do permutation and s will be changed if permutation occurs
-        if(s==original_s)// if there is no permutation possible original and s will be same
-            cout<<"no answer "<<endl;
-        else
-            cout<<s<<endl;// else print ans
 
-        prev_permutation(s.begin(),s.end());// do permutation and s will be changed if permutation occurs
-        if(s==original_s)// if there is no permutation possible original and s will be same
-            cout<<s<<endl;
-        else
-            cout<<"no answer "<<endl;
-    }
 
+void str2char(string s){
+ 
+    int n = s.length();
+ 
+    char char_array[n + 1];
+ 
+    strcpy(char_array, s.c_str());
+ 
+    for (int i = 0; i < n; i++)
+        cout << char_array[i];
+ 
+}
+
+void RotArray(char a[], int n,  int k)
+{
+    char b[n];
+    int i;
     
+    
+    //Moving each element by k positions
+    for(i = 0; i < n; i++) {
+
+        b[(i + k) % n] = a[i];
+    }
+     
+     //Display Rotated Array
+     
+     for(i = 0; i < n; i++) {
+
+        cout << b[i];
+     }
+}
+
+int main() {
+
+    cout << "Holo" << endl;
+    
+    string prueba;
+
+    getline(cin, prueba);
+
+
+    int n = prueba.length();
+ 
+    char char_array[n + 1];
+ 
+    strcpy(char_array, prueba.c_str());
+    
+
+    int m = sizeof(char_array);
+
+    RotArray(char_array, m, 10);
+
 }
