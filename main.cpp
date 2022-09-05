@@ -4,14 +4,11 @@
  *          Integración de seguridad informática           *
  *              en redes y sistemas de software            *
  *                       Actividad 2                       *
- *                        01/09/2022                       *
+ *                        05/09/2022                       *
  *                 Ricardo Núñez Alanís A01703259          *
  *           Olivia Araceli Morales Quezada A10707371      *
  *           Cristian Leilael Rico Espinosa A01707023      *
  ***********************************************************/
-
-// CPP program for illustrating
-// Columnar Transposition Cipher
 
 #include <bits/stdc++.h>
 #include <stdio.h>
@@ -21,8 +18,6 @@ using namespace std;
 // Llave a usar para transposición
 string key;
 string texto_plano;
-
-char b[] = {};
 
 map<int,int> keyMap;
 
@@ -205,18 +200,18 @@ string decrypt_caesar(string cipher, int s)
 }
 
 
-// void str2char(string s){
+ void str2char(string s){
  
-//     int n = s.length();
+     int n = s.length();
  
-//     char char_array[n + 1];
+     char char_array[n + 1];
  
-//     strcpy(char_array, s.c_str());
+     strcpy(char_array, s.c_str());
  
-//     for (int i = 0; i < n; i++)
-//         cout << char_array[i];
+     for (int i = 0; i < n; i++)
+         cout << char_array[i];
  
-// }
+ }
 
 string convertToString(char* a, int size)
 {
@@ -228,30 +223,32 @@ string convertToString(char* a, int size)
     return s;
 }
 
-void rotArray(char a[], int n,  int k)
+
+template<typename T>
+void printElements(T &v)
 {
-    
-    int i;
-    
-    
-    //Moving each element by k positions
-    for(i = 0; i < n; i++) {
-
-        b[(i + k) % n] = a[i];
+    //cout << "Rotacion: ";
+    for (const auto &item : v) {
+        cout << item << "";
     }
-     
-     //Display Rotated Array
-     
-     for(i = 0; i < n; i++) {
+    cout << endl;
+}
 
-        cout << b[i];
-     }
-
-	 
+template<typename T>
+int rotateArrayElements(T &v, int dir)
+{
+    if (dir > 0) {
+        rotate(v.rbegin(), v.rbegin() + dir, v.rend());
+        return 0;
+    } else if (dir < 0) {
+        rotate(v.begin(), v.begin() + abs(dir), v.end());
+        return 0;
+    } else {
+        return 1;
+    }
 }
 
 
-// Inicio del main
 int main(void)
 {
 
@@ -275,55 +272,59 @@ int main(void)
 
 	str2char(cipher2);*/
 
-	
-
-	int n = cipher2.length();
- 
-    char char_array[n + 1];
-
-	char char_aux[n + 1];
- 
-    strcpy(char_array, cipher2.c_str());
-
-	cout << "\nChar array: ";
-
-	for (int i = 0; i < n; i++) {
-		cout << char_array[i];
-	}
-
-	int m = sizeof(char_array);
-	int r = key.length();
-	int k = m - r;
-
-	cout << "\n";
-	cout << "M= " << m << endl;
-    cout << "R= " << r << endl;
-    cout << "K= " << k << endl;
+	/*
+	cout << "Antes de Rotar: ";
+	printElements(cipher2); 
+	cout << endl;*/
 
 	cout << "\nRotacion Encriptado: ";
-	rotArray(char_array, m, r);
-	cout << endl;
+	rotateArrayElements(cipher2, key.length());
+	printElements(cipher2);
 
-	cout << "\nCoso: "<< endl;
-	for (int i = 0; i < m; i++) {
-		cout << b[i];
+	string cipher3 = cipher2;
+	/*cout << "Sigo igual: ";
+	printElements(cipher3); 
+	cout << endl;*/
+	
+	int n = cipher3.length();
+	int r = key.length();
+	char char_cipher3[n + 1];
+	strcpy(char_cipher3, cipher3.c_str());
+
+	cout << "\nSuma: ";
+	for (int i = 0; i < n; i++) {
+    char_cipher3[i] = char_cipher3[i] + r;
+    cout << char_cipher3[i];
 	}
 
-	cout << "\nRotacion Desencriptado (cipher2): ";
-	rotArray(b, m+1, k);
+	string texto = convertToString(char_cipher3, n);
 
-	cout << "\nES: "<< endl;
-	for (int i = 0; i < m; i++) {
-		cout << b[i];
+	cout << "\nString Encriptado Final: " << texto;
+
+	cout << "\n\n DESECRIPTACION";
+
+	cout << "\nSuma Reverso: ";
+	for (int i = 0; i < n; i++) {
+    char_cipher3[i] = char_cipher3[i] - r;
+    cout << char_cipher3[i];
 	}
+
+	string decipher = convertToString(char_cipher3, n);
 
 	
+	cout << "\nRotacion Desencriptado: ";
+	rotateArrayElements(decipher, -key.length());
+    printElements(decipher);
+	cout << endl;
+	string decipher2 = decipher;
 
-	/*string texto = convertToString(char_array, m);
+	cout << "\nCaesar Desencriptado: " << decrypt_caesar(decipher2, s)<< endl;
+	string decipher3 =  decrypt_caesar(decipher2, s);
+	
+	cout << "\nTranspuesta Desencriptado: " << desencriptarMensaje(decipher3) << endl;
 
-	cout << "\nString: " << texto;
-	lp rgxpsgefgefg
-	*/
+	//cout << "\nString: " << texto;
+	
 
 	return 0;
 }

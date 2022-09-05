@@ -2,62 +2,67 @@
 #include <vector>
 #include <array>
 #include <algorithm>
-#include <cstring>
 
 using namespace std;
 
+string key;
+string texto_plano;
 
-void str2char(string s){
- 
-    int n = s.length();
- 
-    char char_array[n + 1];
- 
-    strcpy(char_array, s.c_str());
- 
-    for (int i = 0; i < n; i++)
-        cout << char_array[i];
- 
+void obtenerLlave(){
+	
+	cout << "Ingrese la llave (maximo 16 caracteres): ";
+  	cin >> key;
+
+	cout << "Ingrese el texto a cifrar (maximo 100 caracteres): ";
+	cin.ignore();
+  	getline(cin,texto_plano);
 }
 
-void RotArray(char a[], int n,  int k)
+template<typename T>
+void printElements(T &v)
 {
-    char b[n];
-    int i;
-    
-    
-    //Moving each element by k positions
-    for(i = 0; i < n; i++) {
-
-        b[(i + k) % n] = a[i];
+    cout << "Rotacion: ";
+    for (const auto &item : v) {
+        cout << item << "";
     }
-     
-     //Display Rotated Array
-     
-     for(i = 0; i < n; i++) {
-
-        cout << b[i];
-     }
+    cout << endl;
 }
 
-int main() {
+template<typename T>
+int rotateArrayElements(T &v, int dir)
+{
+    if (dir > 0) {
+        rotate(v.rbegin(), v.rbegin() + dir, v.rend());
+        return 0;
+    } else if (dir < 0) {
+        rotate(v.begin(), v.begin() + abs(dir), v.end());
+        return 0;
+    } else {
+        return 1;
+    }
+}
 
-    cout << "Holo" << endl;
-    
-    string prueba;
+int main()
+{
 
-    getline(cin, prueba);
+    obtenerLlave();
+
+    rotateArrayElements(texto_plano, key.length());
+    /*array<int, 10> arr = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    vector<int> vec = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+
+    rotateArrayElements(arr, 3);
+    printElements(arr);
+
+    rotateArrayElements(vec, -3);
+    printElements(vec);*/
+
+    printElements(texto_plano);
+
+    rotateArrayElements(texto_plano, -key.length());
+
+    printElements(texto_plano);
 
 
-    int n = prueba.length();
- 
-    char char_array[n + 1];
- 
-    strcpy(char_array, prueba.c_str());
-    
-
-    int m = sizeof(char_array);
-
-    RotArray(char_array, m, 10);
-
+    exit(EXIT_SUCCESS);
 }
